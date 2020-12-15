@@ -138,6 +138,8 @@ end)
 spawn(function()
     while true do wait(1)
     getgenv().Timer = getgenv().Timer + 1
-    TimerText:SetText("Timer: "..getgenv().Timer)
     end
+    getgenv().Timer.Changed:Connect(function()
+    TimerText:SetText("Timer: "..getgenv().Timer)
+    end)
     end)
