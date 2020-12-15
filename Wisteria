@@ -3,6 +3,8 @@ local Material = loadstring(game:HttpGet("https://raw.githubusercontent.com/Kinl
 local player = game.Players.LocalPlayer
 local HttpService, TPService = game:GetService("HttpService"), game:GetService("TeleportService")
 local ServersToTP = HttpService:JSONDecode(game:HttpGet("https://games.roblox.com/v1/games/"..game.PlaceId.."/servers/Public?sortOrder=Asc&limit=100"))
+getgenv().Timer = 0
+
 
 local Wis = Material.Load({
 	Title = "Wisteria",
@@ -51,6 +53,7 @@ local Contrib = NewTitle.Button({
 })
 
 
+
 Status:SetText("Status: The game is loading..")
 wait(.50)
 Status:SetText("Status: The game is loading...")
@@ -59,6 +62,22 @@ Status:SetText("Status: The game is loading....")
 wait(.50)
 Status:SetText("Status: The game is loading.....")
 wait(1.8)
+
+spawn(function()
+local Tim3r = NewTitle.Button({
+	Text = "Timer: "..getgenv().Timer,
+	Callback = function()
+		return
+	end,
+	Menu = {
+		Information = function(self)
+			X.Banner({
+				Text = "This is a button but it does nothing, i just could not find a text label function"
+			})
+		end
+	}
+})
+    end)
 
 spawn(function()
     game:GetService("Players").LocalPlayer.PlayerGui.StatGUI.Frame.Contribution.Changed:Connect(function()
@@ -115,3 +134,7 @@ end
         print("Checking if there are npcs left")
     end
 end)
+
+spawn(function()
+    getgenv().Timer = getgenv().Timer + 1
+    end)
