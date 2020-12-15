@@ -48,6 +48,7 @@ local Mob = NewTitle.Button({
 repeat wait() until game:GetService("Players").LocalPlayer
 repeat wait() until game:GetService("Players").LocalPlayer.PlayerGui
 repeat wait() until game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild('StatGUI')
+wait(.25)
 
 local Contrib = NewTitle.Button({
 	Text = game:GetService("Players").LocalPlayer.PlayerGui.StatGUI.Frame.Contribution.Text,
@@ -90,7 +91,7 @@ while true do wait()
     if v.Name == getgenv().Mob then
             player.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0,-10,0)
     		v.Humanoid.Health = 1
-    		Status:SetText("Status: Killing "..getgenv().Mobt)
+    		Status:SetText("Status: Killing "..getgenv().Mob)
     		wait()
     		local A_1 = 
 {
