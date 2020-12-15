@@ -75,9 +75,10 @@ player.Character.Scripts.Sheath:FireServer(A_1)
 spawn(function()
 while true do wait(.25)
             pcall(function()
+            repeat wait()
             for i,v in pairs(game:GetService("Workspace").Living:GetChildren()) do
     if v.Name == getgenv().Target then
-        repeat wait()
+        
             player.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0,-10,0)
     		v.Humanoid.Health = 1
     		Status:SetText("Status: Killing "..getgenv().Target)
@@ -88,9 +89,9 @@ while true do wait(.25)
             local A_3 = 0
             local A_4 = 0
 game:GetService("ReplicatedStorage").Events.Execute:FireServer(A_1, game:GetService("ReplicatedStorage").Styles.Katana.Vulnerable, A_3, A_4)
-    until v.Humanoid.Health == 0
     end
-            end
+    end
+    until v.Humanoid.Health == 0
             end)
 end
 end)
