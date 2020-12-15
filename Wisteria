@@ -136,6 +136,8 @@ end
 end)
 
 spawn(function()
+    while true do wait(1)
     getgenv().Timer = getgenv().Timer + 1
     Tim3r:SetText("Timer: "..getgenv().Timer)
+    end
     end)
