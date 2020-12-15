@@ -77,6 +77,11 @@ local TimerText = NewTitle.Button({
 		end
 	}
 })
+
+while true do wait(1)
+    getgenv().Timer = getgenv().Timer + 1
+    TimerText:SetText("Timer: "..getgenv().Timer)
+    end
     end)
 
 spawn(function()
@@ -134,12 +139,3 @@ end
         print("Checking if there are npcs left")
     end
 end)
-
-spawn(function()
-    while true do wait(1)
-    getgenv().Timer = getgenv().Timer + 1
-    end
-    getgenv().Timer.Changed:Connect(function()
-    TimerText:SetText("Timer: "..getgenv().Timer)
-    end)
-    end)
