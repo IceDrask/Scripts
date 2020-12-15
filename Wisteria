@@ -3,7 +3,6 @@ local Material = loadstring(game:HttpGet("https://raw.githubusercontent.com/Kinl
 local player = game.Players.LocalPlayer
 local HttpService, TPService = game:GetService("HttpService"), game:GetService("TeleportService")
 local ServersToTP = HttpService:JSONDecode(game:HttpGet("https://games.roblox.com/v1/games/"..game.PlaceId.."/servers/Public?sortOrder=Asc&limit=100"))
-getgenv().Timer = 0
 
 
 local Wis = Material.Load({
@@ -62,27 +61,6 @@ Status:SetText("Status: The game is loading....")
 wait(.50)
 Status:SetText("Status: The game is loading.....")
 wait(1.8)
-
-spawn(function()
-local TimerText = NewTitle.Button({
-	Text = "Timer: "..getgenv().Timer,
-	Callback = function()
-		return
-	end,
-	Menu = {
-		Information = function(self)
-			X.Banner({
-				Text = "This is a button but it does nothing, i just could not find a text label function"
-			})
-		end
-	}
-})
-
-while true do wait(1)
-    getgenv().Timer = getgenv().Timer + 1
-    TimerText:SetText("Timer: "..getgenv().Timer)
-    end
-    end)
 
 spawn(function()
     game:GetService("Players").LocalPlayer.PlayerGui.StatGUI.Frame.Contribution.Changed:Connect(function()
