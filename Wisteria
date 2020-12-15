@@ -1,0 +1,130 @@
+repeat wait() until game:IsLoaded()
+local Material = loadstring(game:HttpGet("https://raw.githubusercontent.com/Kinlei/MaterialLua/master/Module.lua"))()
+local player = game.Players.LocalPlayer
+local HttpService, TPService = game:GetService("HttpService"), game:GetService("TeleportService")
+local ServersToTP = HttpService:JSONDecode(game:HttpGet("https://games.roblox.com/v1/games/"..game.PlaceId.."/servers/Public?sortOrder=Asc&limit=100"))
+
+local Wis = Material.Load({
+	Title = "Wisteria",
+	Style = 3,
+	SizeX = 500,
+	SizeY = 350,
+	Theme = "Dark"
+})
+
+local NewTitle = Wis.New({
+	Title = "Farming"
+})
+
+
+
+local Status = NewTitle.Button({
+	Text = "Status: The game is loading.",
+	Callback = function()
+		return
+	end,
+	Menu = {
+		Information = function(self)
+			X.Banner({
+				Text = "This is a button but it does nothing, i just could not find a text label function"
+			})
+		end
+	}
+})
+
+local Mob = NewTitle.Button({
+	Text = "Mob: "..getgenv().Mob,
+	Callback = function()
+		return
+	end,
+	Menu = {
+		Information = function(self)
+			X.Banner({
+				Text = "This is a button but it does nothing, i just could not find a text label function"
+			})
+		end
+	}
+})
+repeat wait() until game:GetService("Players").LocalPlayer
+repeat wait() until game:GetService("Players").LocalPlayer.PlayerGui
+repeat wait() until game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild('StatGUI')
+
+local Contrib = NewTitle.Button({
+	Text = game:GetService("Players").LocalPlayer.PlayerGui.StatGUI.Frame.Contribution.Text,
+	Callback = function()
+		return
+	end,
+	Menu = {
+		Information = function(self)
+			X.Banner({
+				Text = "This is a button but it does nothing, i just could not find a text label function"
+			})
+		end
+	}
+})
+
+
+Status:SetText("Status: The game is loading..")
+wait(.50)
+Status:SetText("Status: The game is loading...")
+wait(.50)
+Status:SetText("Status: The game is loading....")
+wait(.50)
+Status:SetText("Status: The game is loading.....")
+wait(1.8)
+
+spawn(function()
+    game:GetService("Players").LocalPlayer.PlayerGui.StatGUI.Frame.Contribution.Changed:Connect(function()
+        Contrib:SetText(game:GetService("Players").LocalPlayer.PlayerGui.StatGUI.Frame.Contribution.Text)
+        end)
+    end)
+
+local A_1 = true
+player.Character.Scripts.Sheath:FireServer(A_1)
+
+
+spawn(function()
+while true do wait()
+            pcall(function()
+            for i,v in pairs(game:GetService("Workspace").Living:GetChildren()) do
+    if v.Name == getgenv().Mob then
+            player.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0,-10,0)
+    		v.Humanoid.Health = 1
+    		Status:SetText("Status: Killing "..getgenv().Mobt)
+    		wait()
+    		local A_1 = 
+{
+	[1] = v
+}
+            local A_3 = 0
+            local A_4 = 0
+game:GetService("ReplicatedStorage").Events.Execute:FireServer(A_1, game:GetService("ReplicatedStorage").Styles.Katana.Vulnerable, A_3, A_4)
+    end
+            end
+            end)
+end
+end)
+
+spawn(function()
+    Stepped = game:GetService('RunService').Stepped:Connect(function()
+    pcall(function()
+        player.MaximumSimulationRadius = math.huge;
+        setsimulationradius(math.huge);
+	if player.Character and player.Character:FindFirstChild("Humanoid") then 
+		player.Character.Humanoid:ChangeState(11)
+	end
+		end)
+end)
+    end)
+
+spawn(function()
+    while true do wait(70)
+        Status:SetText("Status: Rejoining")
+        for _, s in pairs(ServersToTP.data) do
+   if s.playing ~= s.maxPlayers then
+       TPService:TeleportToPlaceInstance(game.PlaceId, s.id)
+   end
+end
+        print("Checking if there are npcs left")
+    end
+end)
