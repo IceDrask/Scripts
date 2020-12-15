@@ -31,20 +31,6 @@ local Status = NewTitle.Button({
 		end
 	}
 })
-
-local Mob = NewTitle.Button({
-	Text = "Mob: "..getgenv().Target,
-	Callback = function()
-		return
-	end,
-	Menu = {
-		Information = function(self)
-			X.Banner({
-				Text = "This is a button but it does nothing, i just could not find a text label function"
-			})
-		end
-	}
-})
 repeat wait() until game:GetService("Players").LocalPlayer
 repeat wait() until game:GetService("Players").LocalPlayer.PlayerGui
 repeat wait() until game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild('StatGUI')
