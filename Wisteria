@@ -137,4 +137,5 @@ end)
 
 spawn(function()
     getgenv().Timer = getgenv().Timer + 1
+    Tim3r:SetText("Timer: "..getgenv().Timer)
     end)
