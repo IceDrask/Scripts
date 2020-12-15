@@ -112,11 +112,14 @@ end)
 
 spawn(function()
     while true do wait(70)
+        for i = 1,10 do
         Status:SetText("Status: Rejoining")
         for _, s in pairs(ServersToTP.data) do
    if s.playing ~= s.maxPlayers then
        TPService:TeleportToPlaceInstance(game.PlaceId, s.id)
    end
+end
+wait(1)
 end
         print("Checking if there are npcs left")
     end
