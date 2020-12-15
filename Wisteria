@@ -64,7 +64,7 @@ Status:SetText("Status: The game is loading.....")
 wait(1.8)
 
 spawn(function()
-local Tim3r = NewTitle.Button({
+local TimerText = NewTitle.Button({
 	Text = "Timer: "..getgenv().Timer,
 	Callback = function()
 		return
@@ -138,6 +138,6 @@ end)
 spawn(function()
     while true do wait(1)
     getgenv().Timer = getgenv().Timer + 1
-    Tim3r:SetText("Timer: "..getgenv().Timer)
+    TimerText:SetText("Timer: "..getgenv().Timer)
     end
     end)
