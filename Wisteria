@@ -66,7 +66,6 @@ wait(.50)
 Status:SetText("Status: The game is loading.......")
 wait(.50)
 Status:SetText("Status: The game is loading........")
-wait(1.8)
 
 spawn(function()
     game:GetService("Players").LocalPlayer.PlayerGui.StatGUI.Frame.Contribution.Changed:Connect(function()
@@ -81,12 +80,12 @@ player.Character.Scripts.Sheath:FireServer(A_1)
 spawn(function()
 while true do wait(.025)
             pcall(function()
-
             for i,v in pairs(game:GetService("Workspace").Living:GetChildren()) do
     if v.Name == getgenv().Target then
             player.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0,-10,0)
     		v.Humanoid.Health = 1
     		Status:SetText("Status: Killing "..getgenv().Target)
+    		wait()
     		local A_1 = 
 {
 	[1] = v
