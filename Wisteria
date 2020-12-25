@@ -90,6 +90,166 @@ if getgenv().Target == "Demon" then
         Contrib:SetText(game:GetService("Players").LocalPlayer.PlayerGui.StatGUI.Frame.Contribution.Text)
         end)
 elseif getgenv().Target == "Civilian" then
+repeat wait() until game:IsLoaded()
+local Material = loadstring(game:HttpGet("https://raw.githubusercontent.com/Kinlei/MaterialLua/master/Module.lua"))()
+local player = game.Players.LocalPlayer
+local HttpService, TPService = game:GetService("HttpService"), game:GetService("TeleportService")
+local ServersToTP = HttpService:JSONDecode(game:HttpGet("https://games.roblox.com/v1/games/"..game.PlaceId.."/servers/Public?sortOrder=Asc&limit=100"))
+local Contrib
+
+local Wis = Material.Load({
+	Title = "Wisteria",
+	Style = 3,
+	SizeX = 500,
+	SizeY = 350,
+	Theme = "Dark"
+})
+
+local NewTitle = Wis.New({
+	Title = "Farming"
+})
+
+
+
+local Status = NewTitle.Button({
+	Text = "Status: The game is loading.",
+	Callback = function()
+		return
+	end,
+	Menu = {
+		Information = function(self)
+			X.Banner({
+				Text = "This is a button but it does nothing, i just could not find a text label function"
+			})
+		end
+	}
+})
+
+local PlaceID = game.PlaceId
+local AllIDs = {}
+local foundAnything = ""
+local actualHour = os.date("!*t").hour
+local Deleted = false
+local File = pcall(function()
+    AllIDs = game:GetService('HttpService'):JSONDecode(readfile("NotSameServers.json"))
+end)
+if not File then
+    table.insert(AllIDs, actualHour)
+    writefile("NotSameServers.json", game:GetService('HttpService'):JSONEncode(AllIDs))
+end
+function TPReturner()
+    local Site;
+    if foundAnything == "" then
+        Site = game.HttpService:JSONDecode(game:HttpGet('https://games.roblox.com/v1/games/' .. PlaceID .. '/servers/Public?sortOrder=Asc&limit=100'))
+    else
+        Site = game.HttpService:JSONDecode(game:HttpGet('https://games.roblox.com/v1/games/' .. PlaceID .. '/servers/Public?sortOrder=Asc&limit=100&cursor=' .. foundAnything))
+    end
+    local ID = ""
+    if Site.nextPageCursor and Site.nextPageCursor ~= "null" and Site.nextPageCursor ~= nil then
+        foundAnything = Site.nextPageCursor
+    end
+    local num = 0;
+    for i,v in pairs(Site.data) do
+        local Possible = true
+        ID = tostring(v.id)
+        if tonumber(v.maxPlayers) > tonumber(v.playing) then
+            for _,Existing in pairs(AllIDs) do
+                if num ~= 0 then
+                    if ID == tostring(Existing) then
+                        Possible = false
+                    end
+                else
+                    if tonumber(actualHour) ~= tonumber(Existing) then
+                        local delFile = pcall(function()
+                            delfile("NotSameServers.json")
+                            AllIDs = {}
+                            table.insert(AllIDs, actualHour)
+                        end)
+                    end
+                end
+                num = num + 1
+            end
+            if Possible == true then
+                table.insert(AllIDs, ID)
+                wait()
+                pcall(function()
+                    writefile("NotSameServers.json", game:GetService('HttpService'):JSONEncode(AllIDs))
+                    wait()
+                    game:GetService("TeleportService"):TeleportToPlaceInstance(PlaceID, ID, game.Players.LocalPlayer)
+                end)
+                wait(4)
+            end
+        end
+    end
+end
+
+function Teleport()
+    while wait() do
+        pcall(function()
+            TPReturner()
+            if foundAnything ~= "" then
+                TPReturner()
+            end
+        end)
+    end
+end
+
+repeat wait() until game:GetService("Players").LocalPlayer
+repeat wait() until game:GetService("Players").LocalPlayer.PlayerGui
+repeat wait() until game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild('StatGUI')
+wait(.25)
+
+if getgenv().Target == "Demon" then
+Contrib = NewTitle.Button({
+	Text = game:GetService("Players").LocalPlayer.PlayerGui.StatGUI.Frame.Contribution.Text,
+	Callback = function()
+		return
+	end,
+	Menu = {
+		Information = function(self)
+			X.Banner({
+				Text = "This is a button but it does nothing, i just could not find a text label function"
+			})
+		end
+	}
+})
+elseif getgenv().Target == "Civilian" then
+Contrib = NewTitle.Button({
+	Text = game:GetService("Players").LocalPlayer.PlayerGui.StatGUI.Frame.Sin.Text,
+	Callback = function()
+		return
+	end,
+	Menu = {
+		Information = function(self)
+			X.Banner({
+				Text = "This is a button but it does nothing, i just could not find a text label function"
+			})
+		end
+	}
+})
+end
+
+
+Status:SetText("Status: The game is loading..")
+wait(.50)
+Status:SetText("Status: The game is loading...")
+wait(.50)
+Status:SetText("Status: The game is loading....")
+wait(.50)
+Status:SetText("Status: The game is loading.....")
+wait(.50)
+Status:SetText("Status: The game is loading......")
+wait(.50)
+Status:SetText("Status: The game is loading.......")
+wait(.50)
+Status:SetText("Status: The game is loading........")
+
+spawn(function()
+if getgenv().Target == "Demon" then
+    game:GetService("Players").LocalPlayer.PlayerGui.StatGUI.Frame.Contribution.Changed:Connect(function()
+        Contrib:SetText(game:GetService("Players").LocalPlayer.PlayerGui.StatGUI.Frame.Contribution.Text)
+        end)
+elseif getgenv().Target == "Civilian" then
 game:GetService("Players").LocalPlayer.PlayerGui.StatGUI.Frame.Sin.Changed:Connect(function()
         Contrib:SetText(game:GetService("Players").LocalPlayer.PlayerGui.StatGUI.Frame.Sin.Text)
         end)
@@ -135,15 +295,8 @@ end)
 
 spawn(function()
     while true do wait(getgenv().ServerHopTimer)
-        for i = 1,10 do
         Status:SetText("Status: Rejoining")
-        for _, s in pairs(ServersToTP.data) do
-   if s.playing ~= s.maxPlayers then
-       TPService:TeleportToPlaceInstance(game.PlaceId, s.id)
-   end
-end
-wait(1)
-end
+        Teleport()
         print("Checking if there are npcs left")
     end
 end)
