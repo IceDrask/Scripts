@@ -179,7 +179,7 @@ game:GetService("Players").LocalPlayer.PlayerGui.StatGUI.Frame.Sin.Changed:Conne
         Contrib:SetText(game:GetService("Players").LocalPlayer.PlayerGui.StatGUI.Frame.Sin.Text)
 end)
     elseif getgenv().Target == "Slayer" then
-game:GetService("Players").LocalPlayer.PlayerGui.StatGUI.Frame.Sin.Changed:Connect(function()
+game:GetService("Players").LocalPlayer.PlayerGui.StatGUI.Frame.Contribution.Changed:Connect(function()
         Contrib:SetText(game:GetService("Players").LocalPlayer.PlayerGui.StatGUI.Frame.Sin.Text)
         end)
 end
