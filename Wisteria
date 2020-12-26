@@ -1,8 +1,3 @@
-getgenv().Target = 'Demon'
-getgenv().SellContribution = false
-getgenv().ServerHopTimer = 75
-
-
 --Open-sourced now
 
 repeat wait() until game:IsLoaded()
@@ -72,7 +67,24 @@ Contrib = NewTitle.Button({
 		end
 	}
 })
+elseif getgenv().Target == "Slayer" then
+Contrib = NewTitle.Button({
+	Text = game:GetService("Players").LocalPlayer.PlayerGui.StatGUI.Frame.Sin.Text,
+	Callback = function()
+		return
+	end,
+	Menu = {
+		Information = function(self)
+			X.Banner({
+				Text = "This is a button but it does nothing, i just could not find a text label function"
+			})
+		end
+	}
+})
 end
+
+
+
 
 
 Status:SetText("Status: The game is loading..")
@@ -89,13 +101,6 @@ Status:SetText("Status: The game is loading.......")
 wait(.50)
 Status:SetText("Status: The game is loading........")
 
-spawn(function()
-if getgenv().Target == "Demon" then
-    game:GetService("Players").LocalPlayer.PlayerGui.StatGUI.Frame.Contribution.Changed:Connect(function()
-        Contrib:SetText(game:GetService("Players").LocalPlayer.PlayerGui.StatGUI.Frame.Contribution.Text)
-        end)
-elseif getgenv().Target == "Civilian" then
-repeat wait() until game:IsLoaded()
 local Material = loadstring(game:HttpGet("https://raw.githubusercontent.com/Kinlei/MaterialLua/master/Module.lua"))()
 local player = game.Players.LocalPlayer
 local HttpService, TPService = game:GetService("HttpService"), game:GetService("TeleportService")
@@ -199,9 +204,6 @@ function Teleport()
     end
 end
 
-end
-end)
-
 repeat wait() until game:GetService("Players").LocalPlayer
 repeat wait() until game:GetService("Players").LocalPlayer.PlayerGui
 repeat wait() until game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild('StatGUI')
@@ -235,6 +237,21 @@ Contrib = NewTitle.Button({
 		end
 	}
 })
+elseif getgenv().Target == "Slayer" then
+Contrib = NewTitle.Button({
+	Text = game:GetService("Players").LocalPlayer.PlayerGui.StatGUI.Frame.Sin.Text,
+	Callback = function()
+		return
+	end,
+	Menu = {
+		Information = function(self)
+			X.Banner({
+				Text = "This is a button but it does nothing, i just could not find a text label function"
+			})
+		end
+	}
+})
+
 end
 
 
@@ -258,6 +275,10 @@ if getgenv().Target == "Demon" then
         Contrib:SetText(game:GetService("Players").LocalPlayer.PlayerGui.StatGUI.Frame.Contribution.Text)
         end)
 elseif getgenv().Target == "Civilian" then
+game:GetService("Players").LocalPlayer.PlayerGui.StatGUI.Frame.Sin.Changed:Connect(function()
+        Contrib:SetText(game:GetService("Players").LocalPlayer.PlayerGui.StatGUI.Frame.Sin.Text)
+end)
+    elseif getgenv().Target == "Slayer" then
 game:GetService("Players").LocalPlayer.PlayerGui.StatGUI.Frame.Sin.Changed:Connect(function()
         Contrib:SetText(game:GetService("Players").LocalPlayer.PlayerGui.StatGUI.Frame.Sin.Text)
         end)
@@ -321,3 +342,5 @@ spawn(function()
 end
 end)
 end)
+
+
